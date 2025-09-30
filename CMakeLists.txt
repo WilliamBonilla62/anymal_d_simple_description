@@ -1,18 +1,21 @@
-cmake_minimum_required(VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.8)
 project(anymal_d_simple_description)
 
-find_package(catkin)
+find_package(ament_cmake REQUIRED)
 
-catkin_package()
-
-install(DIRECTORY config launch meshes urdf
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+install(DIRECTORY
+  config
+  doc
+  launch
+  meshes
+  urdf
+  DESTINATION share/${PROJECT_NAME}
 )
 
-if(CATKIN_ENABLE_TESTING)
-  find_package(catkin REQUIRED
-    COMPONENTS
-      roslaunch
-  )
-  roslaunch_add_file_check(launch/load.launch)
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  ament_lint_auto_find_test_dependencies()
+
 endif()
+
+ament_package()
